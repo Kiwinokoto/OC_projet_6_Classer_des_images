@@ -42,6 +42,7 @@ cffi=1.16.0=py311h5eee18b_0
 charset-normalizer=2.0.4=pyhd3eb1b0_0
 click=8.1.7=py311h06a4308_0
 cloudpickle=2.2.1=py311h06a4308_0
+colorlog=5.0.1=py311h06a4308_1
 comm=0.2.1=py311h06a4308_0
 contourpy=1.2.0=py311hdb19cb5_0
 cryptography=41.0.3=py311h130f0dd_0
@@ -197,6 +198,7 @@ oauthlib=3.2.2=py311h06a4308_0
 openjpeg=2.4.0=h3ad879b_0
 openssl=1.1.1w=h7f8727e_0
 opt_einsum=3.3.0=pyhd3eb1b0_1
+optuna=3.5.0=pyhd8ed1ab_0
 orc=1.7.4=hb3bc3d3_1
 overrides=7.4.0=py311h06a4308_0
 packaging=23.2=py311h06a4308_0
