@@ -1,3 +1,4 @@
 data/
 keras_tuner/
 mlruns/
+pickle/
