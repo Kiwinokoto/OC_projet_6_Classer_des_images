@@ -198,7 +198,7 @@ oauthlib=3.2.2=py311h06a4308_0
 openjpeg=2.4.0=h3ad879b_0
 openssl=1.1.1w=h7f8727e_0
 opt_einsum=3.3.0=pyhd3eb1b0_1
-optuna=3.5.0=pyhd8ed1ab_0
+optuna=3.6.0=pyhd8ed1ab_0
 orc=1.7.4=hb3bc3d3_1
 overrides=7.4.0=py311h06a4308_0
 packaging=23.2=py311h06a4308_0
@@ -310,7 +310,7 @@ websocket-client=0.58.0=py311h06a4308_4
 werkzeug=2.3.8=py311h06a4308_0
 wheel=0.41.2=py311h06a4308_0
 widgetsnbextension=4.0.10=py311h06a4308_0
-wordcloud=1.9.2=py311h5eee18b_0
+wordcloud=1.9.3=py311h5eee18b_0
 wrapt=1.14.1=py311h5eee18b_0
 xxhash=0.8.0=h7f8727e_3
 xz=5.4.6=h5eee18b_0
