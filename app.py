@@ -29,7 +29,7 @@ target_size=(size_wh, size_wh)
 @st.cache_resource
 def load_model():
     # Load the pre-trained model
-    pickle_path_model = './pickle/pretrained/120_classes/NASNetLarge_15_lay_11.0_pc_model.pkl'
+    pickle_path_model = './pickle/pretrained/120_classes/NASNetLarge_10_lay_11.1_pc_model.pkl'
     model = pickle.load(open(pickle_path_model, 'rb'))
 
     return model
@@ -73,6 +73,9 @@ if st.button("Click Me"):
 
     dog_image_path = data['photo_path'][random_index]
     breed = data['breed'][random_index]
+
+    data["target"] = label_encoder.transform(data["breed"])
+    # target = data['target'][random_index]
     st.image(dog_image_path, caption=f"{breed}")
 
     image = load_img(dog_image_path, target_size=target_size)
@@ -81,15 +84,17 @@ if st.button("Click Me"):
     image = preprocess_input(image)
     image = np.asarray(image)
 
+    dico = {}
+    for index, classe in enumerate(list(label_encoder.classes_)):
+        # st.write(f"{index}, {classe}")
+        dico[str(index)] = classe
 
     # prediction = model.predict(image)
-    prediction_labels = model.predict(image)
-    predicted_label = np.argmax(prediction_labels)
-    # load and cache label_encoder first
-    predicted_breed = label_encoder.inverse_transform(predicted_label)
+    prediction = model.predict(image)
+    prediction_dict = {str(i): float(prediction[0][i]) for i in range(0, 120)}
 
+    # Sort the dictionary based on predicted probabilities in descending order
+    sorted_dict = dict(sorted(prediction_dict.items(), key=lambda item: item[1], reverse=True))
 
-    # Display the predicted label
-    st.write(f"Predicted breed: {predicted_breed}")
-
-    # st.write(f"Model predicts : `{prediction}`")
+    for breed, proba in list(sorted_dict.items())[:1]:
+        st.write(f"Model prediction: {dico[str(breed)]} ({int(proba*100)}%)")
