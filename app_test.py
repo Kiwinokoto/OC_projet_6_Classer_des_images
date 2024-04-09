@@ -96,9 +96,11 @@ if st.button("Click Me"):
     # Sort the dictionary based on predicted probabilities in descending order
     sorted_dict = dict(sorted(prediction_dict.items(), key=lambda item: item[1], reverse=True))
 
-    for i, predicted_breed, proba in enumerate(list(sorted_dict.items())[:2]):
+    i = 0
+    for predicted_breed, proba in list(sorted_dict.items())[:2]:
         breed_answer = dico[str(breed)]
         if i == 0: # première réponse
+            i += 1
             if predicted_breed == breed : # réponse correcte en vert
                 st.write(f"Model prediction: :green[{breed_answer}] ({int(proba*100)}%)")
             else: # pbblmt husky/siberien ou terrier^^
