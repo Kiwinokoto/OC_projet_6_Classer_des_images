@@ -1,0 +1,35 @@
+name: build and deploy
+
+on: [push]
+
+jobs:
+    run-tests:
+        strategy:
+            fail-fast: false
+            matrix:
+                os: [ubuntu-latest]
+                python-version:
+                    - '3.11.5'
+        name: build, fetch model in lfs, for dtreamlit to deploy
+        runs-on: ${{ matrix.os }}
+
+        steps:
+            - name: Checkout code (build)
+              uses: actions/checkout@v3
+
+            - name: Setup python
+              uses: actions/setup-python@v4
+              with:
+                  python-version: ${{ matrix.python-version }}
+
+            - name: Install dependencies (from api folder)
+              run: |
+                  pip install -r requirements.txt
+
+            - name: get hash
+              run: git lfs ls-files # 4021c2540f
+
+            - name: check large object folder
+              run: |
+                  git lfs fetch --all
+                  ls -lhR .git/lfs/objects
