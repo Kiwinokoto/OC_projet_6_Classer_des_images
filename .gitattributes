@@ -1,1 +1,1 @@
-data/NASNetLarge_10_lay_11.1_pc_model.pkl filter=lfs diff=lfs merge=lfs -text
+NASNetLarge_10_lay_11.1_pc_model.pkl filter=lfs diff=lfs merge=lfs -text
