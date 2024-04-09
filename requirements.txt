@@ -1,4 +1,3 @@
 numpy
 pandas
-tensorflow
-pickle
+tensorflow == 2.12.0
