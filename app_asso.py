@@ -3,6 +3,7 @@ import streamlit as st
 
 # paths, folders/files
 import os, sys, random, re
+from io import BytesIO
 
 # math, dataframes
 import numpy as np
@@ -29,7 +30,7 @@ target_size=(size_wh, size_wh)
 @st.cache_resource
 def load_model():
     # Load the pre-trained model
-    pickle_path_model = './pickle/pretrained/120_classes/NASNetLarge_10_lay_11.1_pc_model.pkl'
+    pickle_path_model = './data/NASNetLarge_10_lay_11.1_pc_model.pkl'
     model = pickle.load(open(pickle_path_model, 'rb'))
 
     return model
@@ -49,45 +50,33 @@ def load_encoder():
 # Load the label encoder
 label_encoder = load_encoder()
 
+# Define a function to load the dict
+@st.cache_resource
+def load_dico_fr():
+    with open('./pickle/dico_fr.pkl', 'rb') as dico_fr:
+        dico_fr = pickle.load(dico_fr)
 
-# Define a function to load the data
-@st.cache_data
-def load_data():
-    # Load your data here
-    data = pd.read_csv('./pickle/leftover_data.csv', sep=',')
-    return data
+    return dico_fr
 
-# Load the data
-data = load_data()
+# Load the label encoder
+dico_fr = load_dico_fr()
 
-nb_dogs = data.shape[0]
 
-st.write("### Click the button to pick a dog randomly!")
-st.write(f"### {nb_dogs} different images possible")
+# Function to handle file upload
+def handle_uploaded_file(uploaded_file):
+    # Read the uploaded file as bytes
+    file_bytes = uploaded_file.getvalue()
 
-# x = st.text_input("Movie", "Star Wars")
+    # Load the image from bytes
+    image = load_img(BytesIO(file_bytes))
+    # Display the uploaded image
+    st.image(image, caption='Uploaded Image')
 
-if st.button("Click Me"):
-    random_index = random.randint(0, nb_dogs)
-    st.write(f"You picked dog nb `{random_index}` in the dataset")
-
-    dog_image_path = data['photo_path'][random_index]
-    breed = data['breed'][random_index]
-
-    data["target"] = label_encoder.transform(data["breed"])
-    # target = data['target'][random_index]
-    st.image(dog_image_path, caption=f"{breed}")
-
-    image = load_img(dog_image_path, target_size=target_size)
+    image = load_img(BytesIO(file_bytes), target_size=target_size)
     image = img_to_array(image)
     image = np.expand_dims(image, axis=0)
     image = preprocess_input(image)
     image = np.asarray(image)
-
-    dico = {}
-    for index, classe in enumerate(list(label_encoder.classes_)):
-        # st.write(f"{index}, {classe}")
-        dico[str(index)] = classe
 
     # prediction = model.predict(image)
     prediction = model.predict(image)
@@ -96,5 +85,24 @@ if st.button("Click Me"):
     # Sort the dictionary based on predicted probabilities in descending order
     sorted_dict = dict(sorted(prediction_dict.items(), key=lambda item: item[1], reverse=True))
 
-    for breed, proba in list(sorted_dict.items())[:1]:
-        st.write(f"Model prediction: {dico[str(breed)]} ({int(proba*100)}%)")
+    for breed, proba in list(sorted_dict.items())[:2]:
+        st.write(f"Model prediction: {dico_fr[str(breed)]} ({int(proba*100)}%)")
+
+
+# Main function
+def main():
+    st.title("Drag and Drop Image Uploader")
+
+    # Drag and drop area
+    st.write("Drag and drop an image file here:")
+    uploaded_file = st.file_uploader(label="", type=["jpg", "jpeg", "png"], accept_multiple_files=False, key="fileUploader")
+
+    # Handle file upload
+    if uploaded_file is not None:
+        handle_uploaded_file(uploaded_file)
+
+# Run the app
+main()
+
+
+

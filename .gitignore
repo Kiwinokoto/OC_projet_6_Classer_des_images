@@ -1,4 +1,5 @@
 data/
 keras_tuner/
 mlruns/
-pickle/
+pickle/perso/
+pickle/pretrained/
