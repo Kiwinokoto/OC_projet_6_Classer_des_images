@@ -1,3 +1,7 @@
+# https://image-classification-dog-breeds.streamlit.app/
+# (version asso)
+
+
 # ui
 import streamlit as st
 
@@ -98,14 +102,14 @@ if st.button("Click Me"):
 
     i = 0
     for predicted_breed, proba in list(sorted_dict.items())[:2]:
-        breed_answer = dico[str(breed)]
+        breed_answer = dico[str(predicted_breed)]
         if i == 0: # première réponse
             i += 1
-            if predicted_breed == breed : # réponse correcte en vert
+            if breed_answer == breed : # réponse correcte en vert
                 st.write(f"Model prediction: :green[{breed_answer}] ({int(proba*100)}%)")
             else: # pbblmt husky/siberien ou terrier^^
                 st.write(f"Model prediction: :red[{breed_answer}] ({int(proba*100)}%)")
         else: # reponse 2 couleur neutre
-            st.write(f"Model prediction: {breed_answer} ({int(proba*100)}%)")
+            st.write(f"Model's second choice: {breed_answer} ({int(proba*100)}%)")
 
 

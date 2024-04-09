@@ -69,8 +69,14 @@ puis en affichant sa classe réelle et les 2 premières classes prédites par le
 Le modèle renvoit une prédiction pour toute image uploadée (drag and drop). 
 C'est cette version qui est déployée, avec un tracking lfs pour notre modèle, à l'adresse :
 
+
 https://image-classification-dog-breeds.streamlit.app/ 
 
 
+    Après une modification du code, par exemple si l'on décide d'envoyer une requête vers une base de données, pour y ajouter la nouvelle entrée automatiquement,
+il suffit d'effectuer un push vers github. Streamlit prend en charge le reste de l'intégration continue, à partir du répo distant. 
 
+    Bien entendu, vérifier ensuite que tout est ok. Une modification importante du code peut entrainer le rechargement de l'environnement ou du modèle en cache,
+mais une seule fois (cela prend qq minutes). Ensuite l'accès à l'appli redevient instantané.
 
+    
