@@ -29,7 +29,7 @@ target_size=(size_wh, size_wh)
 @st.cache_resource
 def load_model():
     # Load the pre-trained model
-    pickle_path_model = './data/NASNetLarge_10_lay_11.1_pc_model.pkl'
+    pickle_path_model = './NASNetLarge_10_lay_11.1_pc_model.pkl'
     model = pickle.load(open(pickle_path_model, 'rb'))
 
     return model
