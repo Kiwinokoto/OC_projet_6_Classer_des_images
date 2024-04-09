@@ -86,7 +86,8 @@ def handle_uploaded_file(uploaded_file):
     sorted_dict = dict(sorted(prediction_dict.items(), key=lambda item: item[1], reverse=True))
 
     for breed, proba in list(sorted_dict.items())[:2]:
-        st.write(f"Model prediction: {dico_fr[str(breed)]} ({int(proba*100)}%)")
+        answer = f"<span style='color: blue;'>{dico_fr[str(breed)]}</span>"
+        st.write(f"Model prediction: {answer} ({int(proba*100)}%)")
 
 
 # Main function
