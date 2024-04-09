@@ -99,9 +99,11 @@ if st.button("Click Me"):
     for i, predicted_breed, proba in enumerate(list(sorted_dict.items())[:2]):
         breed_answer = dico[str(breed)]
         if i == 0: # première réponse
-            if predicted_breed == breed : # réponse correcte
-                breed_answer = f"<span style='color: green;'>{dico[str(breed)]}</span>"
+            if predicted_breed == breed : # réponse correcte en vert
+                st.write(f"Model prediction: :green[{breed_answer}] ({int(proba*100)}%)")
             else: # pbblmt husky/siberien ou terrier^^
-                breed_answer = f"<span style='color: red;'>{dico[str(breed)]}</span>"
+                st.write(f"Model prediction: :red[{breed_answer}] ({int(proba*100)}%)")
+        else: # reponse 2 couleur neutre
+            st.write(f"Model prediction: {breed_answer} ({int(proba*100)}%)")
 
-        st.write(f"Model prediction: {breed_answer} ({int(proba*100)}%)")
+

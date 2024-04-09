@@ -85,9 +85,12 @@ def handle_uploaded_file(uploaded_file):
     # Sort the dictionary based on predicted probabilities in descending order
     sorted_dict = dict(sorted(prediction_dict.items(), key=lambda item: item[1], reverse=True))
 
-    for breed, proba in list(sorted_dict.items())[:2]:
-        answer = f"<span style='color: blue;'>{dico_fr[str(breed)]}</span>"
-        st.write(f"Model prediction: {answer} ({int(proba*100)}%)")
+    for i, breed, proba in enumerate(list(sorted_dict.items())[:2]):
+        answer = dico_fr[str(breed)]
+        if i == 0: # première réponse en bleu
+            st.write(f"Model prediction: :blue[{answer}] ({int(proba*100)}%)")
+        else: # defaut color
+            st.write(f"Model prediction: {answer} ({int(proba*100)}%)")
 
 
 # Main function
