@@ -20,7 +20,7 @@ qui a servi a entrainer les modeles que nous utiliserons en partie 3.
 spécifiques aux images : redimensionnement, ajustement du contraste et de l'exposition, adoucissement du bruit grâce à différents filtres
 (gaussien, bilinéaire, non-local).
     Notons qu'aujourd'hui ces étapes sont directement intégrées dans les premières couches des réseaux neuronaux, ce qui présente plusieurs avantages
-(simplicité, compatibilité, efficacité du pipeline).
+(simplicité, compatibilité, gestion de la mémoire vive...)
 
 
 2) Entrainement d'un modèle perso
